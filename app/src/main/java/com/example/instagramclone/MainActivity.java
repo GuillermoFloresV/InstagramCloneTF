@@ -40,16 +40,28 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPost;
     private ImageView ivPostImage;
     private File photoFile;
+    private Button btnLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btnLogout = findViewById(R.id.btnLogout);
         etDescription = findViewById(R.id.etDescription);
         btnCapture = findViewById(R.id.btnCapture);
         btnPost = findViewById(R.id.btnPost);
         ivPostImage = findViewById(R.id.ivPostImage);
 
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Logging out: " + ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
+                ParseUser.logOut();
+                ParseUser user = ParseUser.getCurrentUser();
+                Intent i = new Intent(MainActivity.this, loginActivity.class);
+                startActivity(i);
+            }
+        });
 
         btnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
